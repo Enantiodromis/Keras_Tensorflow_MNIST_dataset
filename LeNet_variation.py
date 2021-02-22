@@ -53,7 +53,7 @@ LeNet5_var.add(BatchNormalization())
 LeNet5_var.add(Activation('relu'))
 # FC2
 LeNet5_var.add(Dense(units=120,activation='relu'))
-#B4
+# B4
 LeNet5_var.add(BatchNormalization())
 LeNet5_var.add(Activation('relu'))
 # FC3
@@ -94,7 +94,8 @@ print('Percentage misclassified = ',100*misclassified/labels_test.size)
 
 score = LeNet5_var.evaluate(x_test, y_test) 
 
-plt.figure(figsize=(8, 2)) 
+plt.figure(figsize=(8, 2))
+
 for i in range(0,8):    
     ax=plt.subplot(2,8,i+1)    
     plt.imshow(x_test[i,:].reshape(28,28), cmap=plt.get_cmap('gray_r'))    
@@ -102,8 +103,8 @@ for i in range(0,8):
     ax.get_xaxis().set_visible(False)    
     ax.get_yaxis().set_visible(False)
 plt.show()
-for i in range(0,8):    
-    #output = net.predict(x_test[i,:].reshape(1, 784)) #if MLP    
+
+for i in range(0,8):      
     output = LeNet5_var.predict(x_test[i,:].reshape(1, 28,28,1)) #if CNN    
     output=output[0,0:]    
     plt.subplot(2,8,8+i+1)    
