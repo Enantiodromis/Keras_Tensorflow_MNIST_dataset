@@ -108,5 +108,5 @@ for i in range(0,8):
     output=output[0,0:]    
     plt.subplot(2,8,8+i+1)    
     plt.bar(np.arange(10.),output)    
-    plt.title(np.argmax(output))s
+    plt.title(np.argmax(output))
 plt.show()
