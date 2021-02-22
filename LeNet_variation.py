@@ -6,6 +6,7 @@ from keras.models import Model
 import numpy as np
 from tensorflow.keras.callbacks import ReduceLROnPlateau
 from keras.models import load_model
+from keras.utils import plot_model
 import matplotlib.pyplot as plt
 
 # Loading the MNIST datasets
@@ -65,13 +66,14 @@ LeNet5_var.add(Dropout(0.25))
 LeNet5_var.add(Dense(units=10,activation='softmax'))
 
 LeNet5_var.summary()
+plot_model(LeNet5_var, to_file='network_structure.png', show_shapes=True)
 
 # NETWORK TRAINING
 variable_learning_rate = ReduceLROnPlateau(monitor='loss', factor = 0.2, patience = 2)
 LeNet5_var.compile(optimizer='adam',loss='categorical_crossentropy',metrics=['accuracy'])
 history = LeNet5_var.fit(x_train,y_train, validation_data=(x_test,y_test), epochs=30, batch_size=64, callbacks = [variable_learning_rate])
 # SAVING THE MODEL
-LeNet5_var.save("LeNet_30_64_2.h5")
+LeNet5_var.save("LeNet_30_64_V2.h5")
 
 plt.figure()
 plt.plot(history.history['loss'], label='training loss')
@@ -82,7 +84,7 @@ plt.legend()
 plt.show()
 
 # LOADING MODEL
-LeNet5_var = load_model("LeNet_30_64_2.h5")
+LeNet5_var = load_model("LeNet_30_64_V2.h5")
 
 # TESTING
 outputs=LeNet5_var.predict(x_test)
@@ -91,3 +93,20 @@ misclassified=sum(labels_predicted!=labels_test)
 print('Percentage misclassified = ',100*misclassified/labels_test.size)
 
 score = LeNet5_var.evaluate(x_test, y_test) 
+
+plt.figure(figsize=(8, 2)) 
+for i in range(0,8):    
+    ax=plt.subplot(2,8,i+1)    
+    plt.imshow(x_test[i,:].reshape(28,28), cmap=plt.get_cmap('gray_r'))    
+    plt.title(labels_test[i])    
+    ax.get_xaxis().set_visible(False)    
+    ax.get_yaxis().set_visible(False)
+plt.show()
+for i in range(0,8):    
+    #output = net.predict(x_test[i,:].reshape(1, 784)) #if MLP    
+    output = LeNet5_var.predict(x_test[i,:].reshape(1, 28,28,1)) #if CNN    
+    output=output[0,0:]    
+    plt.subplot(2,8,8+i+1)    
+    plt.bar(np.arange(10.),output)    
+    plt.title(np.argmax(output))s
+plt.show()
