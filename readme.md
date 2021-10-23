@@ -5,7 +5,7 @@
 - Keras
 - TensorFlow
 
-## Building and training a deep nueral network for classifying the MNIST dataset. 
+## Building and training a deep neural network for classifying the MNIST dataset. 
 The MNIST dataset consists of 60,000 28x28 pixel images of handwritten digits. 
 
 The set of images in the [MNIST database](http://yann.lecun.com/exdb/mnist/) is a combination of two of NIST's databases: Special Database 1 and Special Database 3. Special Database 1 and Special Database 3 consist of digits written by high school students and employees of the United States Census Bureau.
