@@ -1,4 +1,4 @@
-# Deep Discriminant Nueral Network (MNIST dataset)
+# Deep Discriminant Neural Network (MNIST dataset)
 
 ## Tools & Tech:
 - Python 
